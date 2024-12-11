@@ -52,21 +52,21 @@ class TestApi(unittest.TestCase):
         response.read().decode(), "64", "ERROR en la multiplicación"
     )
 
-def test_api_divide(self):
-    # Define the URL for the division API
-    url = f"{BASE_URL_MOCK}/calc/divide/64/8"
+def test_api_divide_by_zero(self):
+    # Define the URL for the division API where the divisor is zero
+    url = f"{BASE_URL_MOCK}/calc/divide/64/0"
     
     # Send the request and get the response
     response = urlopen(url, timeout=DEFAULT_TIMEOUT)
     
-    # Assert that the response status is OK (200)
+    # Assert that the response status is 406 (Not Acceptable) due to division by zero
     self.assertEqual(
-        response.status, http.client.OK, f"Error en la petición API a {url}"
+        response.status, 406, f"Error en la petición API a {url}"
     )
     
-    # Assert that the response content is the correct division result (8)
-    self.assertEqual(
-        response.read().decode(), "8", "ERROR en la división"
+    # Optionally, check if the response body contains a relevant error message
+    self.assertIn(
+        "Cannot divide by zero", response.read().decode(), "ERROR: No se manejó la división por cero correctamente"
     )
 
 if __name__ == "__main__":  # pragma: no cover
