@@ -31,3 +31,40 @@ def substract(op_1, op_2):
         return ("{}".format(CALCULATOR.substract(num_1, num_2)), http.client.OK, HEADERS)
     except TypeError as e:
         return (str(e), http.client.BAD_REQUEST, HEADERS)
+
+@api_application.route("/calc/multiply/<op_1>/<op_2>", methods=["GET"])
+def multiply(op_1, op_2):
+    try:
+        # Convert input parameters to numbers
+        num_1, num_2 = util.convert_to_number(op_1), util.convert_to_number(op_2)
+        
+        # Perform multiplication
+        result = CALCULATOR.multiply(num_1, num_2)
+        
+        # Return the result with OK status
+        return ("{}".format(result), http.client.OK, HEADERS)
+    except TypeError as e:
+        # Return an error message with BAD_REQUEST status if conversion fails
+        return (str(e), http.client.BAD_REQUEST, HEADERS)
+
+@api_application.route("/calc/divide/<op_1>/<op_2>", methods=["GET"])
+def divide(op_1, op_2):
+    try:
+        # Convert input parameters to numbers
+        num_1, num_2 = util.convert_to_number(op_1), util.convert_to_number(op_2)
+        
+        # Check for division by zero
+        if num_2 == 0:
+            raise ValueError("Cannot divide by zero.")
+        
+        # Perform division
+        result = CALCULATOR.divide(num_1, num_2)
+        
+        # Return the result with OK status
+        return ("{}".format(result), http.client.OK, HEADERS)
+    except TypeError as e:
+        # Return an error message with BAD_REQUEST status if conversion fails
+        return (str(e), http.client.BAD_REQUEST, HEADERS)
+    except ValueError as e:
+        # Return an error message if division by zero occurs
+        return (str(e), http.client.BAD_REQUEST, HEADERS)
