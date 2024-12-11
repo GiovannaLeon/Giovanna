@@ -61,6 +61,44 @@ class TestCalculate(unittest.TestCase):
         self.assertEqual(0, self.calc.substract(0, 0))
         self.assertEqual(0, self.calc.substract(0, 0))
         self.assertRaises(TypeError, self.calc.substract, "0", 0)
-        
+
+def test_multiply_method_returns_correct_result(self):
+    # Verificar multiplicación de números positivos
+    self.assertEqual(50, self.calc.multiply(10, 5))  # 10 * 5 = 50
+    
+    # Verificar multiplicación de números negativos
+    self.assertEqual(-2560, self.calc.multiply(256, -10))  # 256 * -10 = -2560
+    
+    # Verificar multiplicación con cero
+    self.assertEqual(0, self.calc.multiply(0, 5))  # 0 * 5 = 0
+    self.assertEqual(0, self.calc.multiply(100, 0))  # 100 * 0 = 0
+    self.assertEqual(0, self.calc.multiply(0, 0))  # 0 * 0 = 0
+
+    # Verificar multiplicación con un número negativo y cero
+    self.assertEqual(0, self.calc.multiply(0, -5))  # 0 * -5 = 0
+    
+    # Verificar que se lanza un error si los argumentos no son numéricos
+    self.assertRaises(TypeError, self.calc.multiply, "a", 5)  # "a" * 5 debe lanzar TypeError
+    self.assertRaises(TypeError, self.calc.multiply, 5, "b")  # 5 * "b" debe lanzar TypeError
+
+def test_divide_method_returns_correct_result(self):
+    # Verificar división de números positivos
+    self.assertEqual(2, self.calc.divide(10, 5))  # 10 / 5 = 2
+    
+    # Verificar división de números negativos
+    self.assertEqual(-25.6, self.calc.divide(256, -10))  # 256 / -10 = -25.6
+    
+    # Verificar división con resultado decimal
+    self.assertEqual(5.0, self.calc.divide(10, 2))  # 10 / 2 = 5.0
+    
+    # Verificar división de número positivo por cero (debe lanzar un error)
+    self.assertRaises(ZeroDivisionError, self.calc.divide, 10, 0)  # 10 / 0 debe lanzar ZeroDivisionError
+    
+    # Verificar división de cero por número (debe dar 0)
+    self.assertEqual(0, self.calc.divide(0, 5))  # 0 / 5 = 0
+    
+    # Verificar que se lanza un error si los argumentos no son numéricos
+    self.assertRaises(TypeError, self.calc.divide, "a", 5)  # "a" / 5 debe lanzar TypeError
+    self.assertRaises(TypeError, self.calc.divide, 5, "b")  # 5 / "b" debe lanzar TypeError
 if __name__ == "__main__":  # pragma: no cover
     unittest.main()
