@@ -55,7 +55,8 @@ def divide(op_1, op_2):
         
         # Check for division by zero
         if num_2 == 0:
-            raise ValueError("Cannot divide by zero.")
+            # Return 406 for division by zero
+            return ("Cannot divide by zero", 406, HEADERS)
         
         # Perform division
         result = CALCULATOR.divide(num_1, num_2)
@@ -64,7 +65,4 @@ def divide(op_1, op_2):
         return ("{}".format(result), http.client.OK, HEADERS)
     except TypeError as e:
         # Return an error message with BAD_REQUEST status if conversion fails
-        return (str(e), http.client.BAD_REQUEST, HEADERS)
-    except ValueError as e:
-        # Return an error message if division by zero occurs
         return (str(e), http.client.BAD_REQUEST, HEADERS)
